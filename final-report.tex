@@ -74,7 +74,59 @@ Code completion is becoming a basic feature to all kinds of IDEs. It helps progr
 \section{Ranking variables}
 Ziyi
 \section{Modeling syntax}
-Yifei
+In this part, we will try to figure out the relation between different types. At the beginning, we deal with the ast files we get from last part.\\
+An example of ast is Fig. \ref{fig:ast example}.\\
+The first token(ForStmt, DeclStmt, VarDel, IntegerLiteral) in each line is the type in ast. After learning the source codes of git, we get more than 70 kinds of different types. However, this project only aims on alphabet. In other words, we only deal with type-names, variable names, function names and reserved words. Thus, we should simplify these kinds of types. 
+Here are our rules of simplification:\\
+If a token contains “Decl”, we sort it to declaration, which is the format of “type-name + variable names”, \\
+If a token contains “Expr”, we sort it to expression, which begins with “variable names”,\\
+If a token contains “Stmt”, we remain it as reserved word, such as “ForStmt” is “for”, “WhileStmt” is “while”,\\
+If a toke not contains “Decl”, “Expr”, “Stmt”, we sort it to else and ignore it in the following process.\\
+After simplification, we get 22 kinds of types.\\
+Then I calculate order-relations in all ast files. I calculate two kinds of relations. One is A$\longrightarrow$B. Another is A$\longrightarrow$B$\longrightarrow$C. Using these statistics results. We can get the possibility of all types when we know the previous code. \\
+Table \ref{tab:SyntaxOne}. is part of statistics result of A$\longrightarrow$B and Table \ref{tab:SyntaxTwo}. is part of statistics result of A$\longrightarrow$B$\longrightarrow$C. From this we can see that with privous two tokens we can get a more accurate token.\\
+
+\begin{figure}
+\centerline{\includegraphics[width=0.9\textwidth]{ast_example.jpg}}
+\caption{ast example}
+\label{fig:ast example}
+\end{figure}
+
+
+\begin{table}%
+\tbl{Partial Relation A$\longrightarrow$B\label{tab:SyntaxOne}}{%
+\begin{tabular}{|l|l|l|l|}
+\hline
+Condition	 &Top Candidate	 &2nd Candidate	 &3rd Candidate\\\hline
+FunctionDecl &	Declaration	 &FunctionDecl	 &ReturnStmt\\\hline
+Declaration	 &Declaration &	FunctionDecl	 &Variable\\\hline
+ReturnStmt	 &Variable	 &IfStmt	 &ForStmt\\\hline
+Variable	 &Variable &	ReturnStmt	 &IfStmt\\\hline
+IfStmt &	Variable	 &- &	-\\\hline
+WhileStmt &	Variable &	-	 &-\\\hline
+ForStmt	 &Declaration	 &Variable	 &IfStmt\\\hline
+ContinueStmt	 &IfStmt	 &Variable	 &CaseStmt\\\hline
+\end{tabular}}
+\end{table}%
+
+
+\begin{table}%
+\tbl{Partial Relation A$\longrightarrow$B$\longrightarrow$C\label{tab:SyntaxTwo}}{%
+\begin{tabular}{|l|l|l|l|}
+\hline
+Condition A&Condition B	 &Top Candidate	 &2nd Candidate\\\hline
+empty &	FunctionDecl	 &Declaration	 &-\\\hline
+FunctionDecl	 &Declaration &	Declaration	 &FunctionDecl\\\hline
+Declaration	 &Declaration	 &Declaration	 &ForStmt\\\hline
+Declaration	 &ReturnStmt &	Variable	 &-\\\hline
+Declaration &	Variable	 &Variable &	-\\\hline
+Declaration &	IfStmt &	Variable	 &-\\\hline
+\end{tabular}}
+\end{table}%
+
+
+
+
 \section{Hacking the editor}
 
 
