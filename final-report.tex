@@ -60,7 +60,6 @@ Yifei Wu
 Ziyi Chen
 \affil{zchen139@ucsc.edu}
 }
-
 \begin{abstract}
 Code completion is becoming a basic feature to all kinds of IDEs. It helps programmers to avoid typos and learn new languages fast. With the development of hardware performance and machine learning techniques, a lot of work could be done to further improve the code completion performance. Traditional code completion function lists all reserved words and variable names that match user’s input and then rank those matches in alphabetical order. We propose a new code completion candidate ranking method which aims at ranking those candidates with contextual syntax and semantic information. A code completion plugin is also built for Sublime Text - a very popular cross-platform code editor.
 \end{abstract}
@@ -70,7 +69,11 @@ Code completion is becoming a basic feature to all kinds of IDEs. It helps progr
 
 
 \section{Introduction}
-\section{Related work}
+
+Code completion (also known as content assist) is now one of most used features in modern integrated development environments(IDEs)\cite{murphy2006java}. There are many mainly three reasons for its popularity. First, typos can be very common when we try to type lengthy words without the help of code completion. Second, the more complex a project is, the more method names, variable names and class names we need to memorize. Code completion can help developers to narrow down possible proposals to a limited subset and speed up coding. Third, with a strong code completion system, developers are more likely to adopt informative words or short phrases naming methods, variables and classes. Those more descriptive names usually result in more readable and undestandable code\cite{bruch2009learning}. 
+
+
+
 \section{Ranking variables}
 Ziyi
 \section{Modeling syntax}
@@ -115,7 +118,7 @@ table footnote. This is a table footnote.}
 
 \section{Conclusions}
 
-Just to show how to cite reference. \cite{Abril07},
+Just to show how to cite reference. \cite{bruch2009learning},
 
 
 % Acknowledgments
