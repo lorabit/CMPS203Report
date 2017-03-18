@@ -26,8 +26,6 @@ all:
 	pdflatex final-report
 	bibtex final-report
 	pdflatex final-report
-	# while ( grep -q '^LaTeX Warning: Label(s) may have changed' $*.log)\
-	# do pdflatex $*; done
 
 clean:
 	$(RM) *.aux *.log  *.blg
