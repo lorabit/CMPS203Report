@@ -72,7 +72,13 @@ Code completion is becoming a basic feature to all kinds of IDEs. It helps progr
 \section{Introduction}
 \section{Related work}
 \section{Ranking variables}
-Ziyi
+In this section, we talk about how to rank variables. According our experience, recently modified(assigned) or declared variables are more likely to be used. So we evaluate the relation of the distance between declaration/assignment and reference of variables, in order to rank previous variables at a certain point according to the distance. \\
+We download git source code from github, which is written by c language, as our training data. Then we use Clang to generate AST of all those c files. Clang is a compiler front-end which is faster and neater that gcc. An example of ast is Fig. \ref{fig:ast example}. The front part is all "TypedefDecl", which is the ast structure of head file. But we only need to find out all declaration and assignment operation in cpp file. Since variables are only effective in certain function, we first find out all functions by "FunctionDecl" and then look out corresponding variables. The declaration statement is shown as "DeclStmt" as well as the function parameter "ParmVarDecl". The assignment statement consists of "BinaryOperator" with "=" and "UnaryOperator", which is "++" or "--". Use function name and variable name as key, ast line number and variable numbers as value to generate a dictionary. Then match all "DeclRefExpr" to find out usage of variables and use former dictionary to find distance of most recently declaration and modification. The result is shown below;
+
+                                                           
+
+
+
 \section{Modeling syntax}
 In this part, we will try to figure out the relation between different types. At the beginning, we deal with the ast files we get from last part.\\
 An example of ast is Fig. \ref{fig:ast example}.\\
